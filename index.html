@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Be My Valentine?</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="bg-glow" aria-hidden="true"></div>
+    <main class="app">
+      <section class="card" aria-live="polite">
+        <div class="stamp">From: Me</div>
+        <h1 id="title">Will you be my Valentine?</h1>
+        <p id="subtitle">
+          I made this just for you. One tiny question, one huge smile.
+        </p>
+
+        <div class="actions" id="actions">
+          <button id="yesBtn" class="btn btn-yes" type="button">Yes</button>
+          <button id="noBtn" class="btn btn-no" type="button">No</button>
+        </div>
+
+        <div class="result" id="result" hidden>
+          <h2>Yay! It’s a date.</h2>
+          <p>
+            I can’t wait to celebrate with you. Pick a time and I’ll bring the
+            chocolate.
+          </p>
+          <button id="replayBtn" class="btn btn-secondary" type="button">
+            Replay the moment
+          </button>
+        </div>
+      </section>
+
+      <div id="hearts" class="hearts" aria-hidden="true"></div>
+    </main>
+
+    <script src="game.js"></script>
+  </body>
+</html>
