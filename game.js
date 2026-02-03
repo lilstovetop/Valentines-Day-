@@ -6,6 +6,9 @@ const hearts = document.getElementById("hearts");
 const title = document.getElementById("title");
 const subtitle = document.getElementById("subtitle");
 const replayBtn = document.getElementById("replayBtn");
+const envelope = document.getElementById("envelope");
+const openBtn = document.getElementById("openBtn");
+const card = document.getElementById("card");
 
 const original = {
   title: title.textContent,
@@ -13,6 +16,16 @@ const original = {
 };
 
 let noMoves = 0;
+
+function openEnvelope() {
+  envelope.classList.add("opening");
+  openBtn.disabled = true;
+
+  setTimeout(() => {
+    envelope.hidden = true;
+    card.hidden = false;
+  }, 650);
+}
 
 function moveNoButton() {
   if (actions.hidden) return;
@@ -92,3 +105,4 @@ noBtn.addEventListener("pointerdown", moveNoButton);
 
 yesBtn.addEventListener("click", onYes);
 replayBtn.addEventListener("click", onReplay);
+openBtn.addEventListener("click", openEnvelope);

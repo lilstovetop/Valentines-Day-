@@ -25,7 +25,7 @@ body {
   background: radial-gradient(circle at top, #fff9fb, var(--bg-1) 40%, var(--bg-2) 100%);
   display: grid;
   place-items: center;
-  padding: 24px;
+  padding: 24px 24px 40px;
 }
 
 .bg-glow {
@@ -41,6 +41,7 @@ body {
   position: relative;
   z-index: 1;
   width: min(520px, 92vw);
+  transform: translateY(-36px);
 }
 
 .card {
@@ -51,6 +52,147 @@ body {
   box-shadow: var(--shadow);
   border: 1px solid rgba(255, 77, 109, 0.12);
   overflow: hidden;
+  text-align: center;
+}
+
+.envelope {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  text-align: center;
+  padding: 18px 0 10px;
+}
+
+.envelope-text {
+  margin: 0;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+.envelope-art {
+  position: relative;
+  width: 240px;
+  height: 160px;
+  perspective: 800px;
+}
+
+.env-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, transparent 47%, rgba(255, 143, 163, 0.4) 48%, rgba(255, 143, 163, 0.4) 52%, transparent 53%),
+    linear-gradient(45deg, transparent 47%, rgba(255, 143, 163, 0.4) 48%, rgba(255, 143, 163, 0.4) 52%, transparent 53%),
+    #fff7f9;
+  border: 2px solid rgba(255, 77, 109, 0.2);
+  box-shadow: 0 14px 30px rgba(255, 77, 109, 0.16);
+}
+
+.env-letter {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  top: 22px;
+  height: 92px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 77, 109, 0.2);
+  transform: translateY(12px);
+  opacity: 0;
+  transition: transform 0.6s ease, opacity 0.4s ease;
+  z-index: 1;
+}
+
+.env-front {
+  display: none;
+}
+
+.env-flap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  margin: 0 auto;
+  border-left: 120px solid transparent;
+  border-right: 120px solid transparent;
+  border-bottom: 90px solid #ff9bb0;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.6s ease;
+  z-index: 3;
+}
+
+.seal-btn {
+  position: absolute;
+  left: 50%;
+  top: 58%;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  width: 36px;
+  height: 36px;
+  background: #d7263d;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  box-shadow: 0 10px 18px rgba(215, 38, 61, 0.35);
+  z-index: 4;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.seal-btn::before,
+.seal-btn::after {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: #d7263d;
+  border-radius: 50%;
+}
+
+.seal-btn::before {
+  top: -18px;
+  left: 0;
+}
+
+.seal-btn::after {
+  left: 18px;
+  top: 0;
+}
+
+.seal-btn:focus-visible {
+  outline: 3px solid rgba(255, 77, 109, 0.35);
+  outline-offset: 6px;
+}
+
+.seal-btn:hover {
+  transform: translate(-50%, -50%) rotate(-45deg) scale(1.05);
+  box-shadow: 0 14px 24px rgba(215, 38, 61, 0.4);
+}
+
+.envelope.opening .env-flap {
+  transform: rotateX(180deg);
+}
+
+.envelope.opening .env-letter {
+  transform: translateY(-8px);
+  opacity: 1;
+}
+
+.envelope.opening {
+  animation: envelopeFade 0.6s ease forwards;
+}
+
+@keyframes envelopeFade {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
 }
 
 .card::after {
@@ -73,6 +215,7 @@ body {
   font-size: 0.9rem;
   letter-spacing: 0.03em;
   margin-bottom: 18px;
+  justify-content: center;
 }
 
 h1 {
@@ -140,6 +283,7 @@ p {
   border-radius: 18px;
   background: #fff7f9;
   border: 1px solid rgba(255, 77, 109, 0.16);
+  text-align: center;
 }
 
 .result h2 {
@@ -196,6 +340,48 @@ p {
 }
 
 @media (max-width: 520px) {
+  .envelope-art {
+    width: 200px;
+    height: 140px;
+  }
+
+  .env-front {
+    border-left-width: 100px;
+    border-right-width: 100px;
+    border-top-width: 70px;
+  }
+
+  .env-flap {
+    border-left-width: 100px;
+    border-right-width: 100px;
+    border-bottom-width: 80px;
+  }
+
+  .seal-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .seal-btn::before,
+  .seal-btn::after {
+    width: 30px;
+    height: 30px;
+  }
+
+  .seal-btn::before {
+    top: -15px;
+    left: 0;
+  }
+
+  .seal-btn::after {
+    left: 15px;
+    top: 0;
+  }
+
+  .app {
+    transform: translateY(-20px);
+  }
+
   .card {
     padding: 34px 24px;
   }

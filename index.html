@@ -15,9 +15,20 @@
   <body>
     <div class="bg-glow" aria-hidden="true"></div>
     <main class="app">
-      <section class="card" aria-live="polite">
-        <div class="stamp">From: Me</div>
-        <h1 id="title">Will you be my Valentine?</h1>
+      <section class="envelope" id="envelope" aria-label="Closed envelope">
+        <div class="envelope-art">
+          <div class="env-back"></div>
+          <div class="env-letter"></div>
+          <div class="env-front"></div>
+          <div class="env-flap"></div>
+          <button id="openBtn" class="seal-btn" type="button" aria-label="Open the envelope"></button>
+        </div>
+        <p class="envelope-text">Tap the heart seal to open.</p>
+      </section>
+
+      <section class="card" id="card" aria-live="polite" hidden>
+        <div class="stamp">From: Big Pants</div>
+        <h1 id="title">Smoochie, will you be my valentine?</h1>
         <p id="subtitle">
           I made this just for you. One tiny question, one huge smile.
         </p>
