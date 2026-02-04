@@ -9,6 +9,38 @@ const replayBtn = document.getElementById("replayBtn");
 const envelope = document.getElementById("envelope");
 const openBtn = document.getElementById("openBtn");
 const card = document.getElementById("card");
+const collageBg = document.getElementById("collageBg");
+
+const collageImages = [
+  "Photos/photo-01.jpg",
+  "Photos/photo-02.jpg",
+  "Photos/photo-03.jpg",
+  "Photos/photo-04.jpg",
+  "Photos/photo-05.jpg",
+  "Photos/photo-06.jpg",
+  "Photos/photo-07.jpg",
+  "Photos/photo-08.jpg",
+  "Photos/photo-09.jpg",
+  "Photos/photo-10.jpg",
+  "Photos/photo-11.jpg",
+  "Photos/photo-12.jpg",
+  "Photos/photo-13.jpg",
+  "Photos/photo-14.jpg",
+  "Photos/photo-15.jpg",
+  "Photos/photo-16.jpg",
+  "Photos/photo-17.jpg",
+  "Photos/photo-18.jpg",
+  "Photos/photo-19.jpg",
+  "Photos/photo-20.jpg",
+  "Photos/photo-21.jpg",
+  "Photos/photo-22.jpg",
+  "Photos/photo-23.jpg",
+  "Photos/photo-24.jpg",
+  "Photos/photo-25.jpg",
+  "Photos/photo-26.jpg",
+  "Photos/photo-27.jpg",
+  "Photos/photo-28.jpg",
+];
 
 const original = {
   title: title.textContent,
@@ -16,6 +48,22 @@ const original = {
 };
 
 let noMoves = 0;
+
+function buildCollage() {
+  if (!collageBg) return;
+
+  const variants = ["", "tall", "wide", "hero"];
+  collageImages.forEach((src, index) => {
+    const tile = document.createElement("div");
+    const variant = variants[index % variants.length];
+    tile.className = `collage-tile ${variant}`.trim();
+    tile.style.backgroundImage = `url("${src}")`;
+    tile.style.setProperty("--r", `${(Math.random() * 4 - 2).toFixed(2)}deg`);
+    tile.style.setProperty("--s", `${(Math.random() * 0.08 + 0.96).toFixed(2)}`);
+    tile.style.animationDelay = `${index * 35}ms`;
+    collageBg.appendChild(tile);
+  });
+}
 
 function openEnvelope() {
   envelope.classList.add("opening");
@@ -106,3 +154,5 @@ noBtn.addEventListener("pointerdown", moveNoButton);
 yesBtn.addEventListener("click", onYes);
 replayBtn.addEventListener("click", onReplay);
 openBtn.addEventListener("click", openEnvelope);
+
+buildCollage();
