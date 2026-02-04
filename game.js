@@ -37,9 +37,6 @@ const collageImages = [
   "Photos/photo-23.jpg",
   "Photos/photo-24.jpg",
   "Photos/photo-25.jpg",
-  "Photos/photo-26.jpg",
-  "Photos/photo-27.jpg",
-  "Photos/photo-28.jpg",
 ];
 
 const original = {
@@ -52,22 +49,33 @@ let noMoves = 0;
 function buildCollage() {
   if (!collageBg) return;
 
-  const variants = ["", "tall", "wide", "hero"];
-  collageImages.forEach((src, index) => {
+  const total = Math.max(
+    collageImages.length,
+    Math.ceil((window.innerWidth * window.innerHeight) / 22000),
+  );
+
+  for (let index = 0; index < total; index += 1) {
+    const src = collageImages[index % collageImages.length];
     const tile = document.createElement("div");
-    const variant = variants[index % variants.length];
+    const roll = Math.random();
+    let variant = "";
+    if (roll > 0.88) variant = "wide";
+    if (roll > 0.94) variant = "tall";
+    if (roll > 0.985) variant = "hero";
+
     tile.className = `collage-tile ${variant}`.trim();
     tile.style.backgroundImage = `url("${src}")`;
     tile.style.setProperty("--r", `${(Math.random() * 4 - 2).toFixed(2)}deg`);
     tile.style.setProperty("--s", `${(Math.random() * 0.08 + 0.96).toFixed(2)}`);
     tile.style.animationDelay = `${index * 35}ms`;
     collageBg.appendChild(tile);
-  });
+  }
 }
 
 function openEnvelope() {
   envelope.classList.add("opening");
   openBtn.disabled = true;
+  document.body.classList.add("proposal-open");
 
   setTimeout(() => {
     envelope.hidden = true;
