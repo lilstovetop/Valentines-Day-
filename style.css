@@ -61,7 +61,7 @@ body.proposal-open .collage-bg {
   border-radius: 14px;
   background-color: rgba(255, 255, 255, 0.12);
   background-size: cover;
-  background-position: center 24%;
+  background-position: center var(--posy, 24%);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
   transform: rotate(var(--r, 0deg)) scale(var(--s, 1));
   opacity: 0;
@@ -74,13 +74,13 @@ body.proposal-open .collage-bg {
 
 .collage-tile.wide {
   grid-column: span 2;
-  background-position: center 34%;
+  background-position: center var(--posy, 34%);
 }
 
 .collage-tile.hero {
   grid-column: span 2;
   grid-row: span 2;
-  background-position: center 28%;
+  background-position: center var(--posy, 28%);
 }
 
 @keyframes tileIn {

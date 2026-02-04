@@ -39,6 +39,39 @@ const collageImages = [
   "Photos/photo-25.jpg",
 ];
 
+const portraitPhotos = new Set([
+  "photo-06.jpg",
+  "photo-07.jpg",
+  "photo-08.jpg",
+  "photo-09.jpg",
+  "photo-10.jpg",
+  "photo-11.jpg",
+  "photo-12.jpg",
+  "photo-14.jpg",
+  "photo-15.jpg",
+  "photo-16.jpg",
+  "photo-17.jpg",
+  "photo-23.jpg",
+  "photo-24.jpg",
+]);
+
+const focalYByPhoto = {
+  "photo-04.jpg": "38%",
+  "photo-06.jpg": "8%",
+  "photo-07.jpg": "6%",
+  "photo-08.jpg": "8%",
+  "photo-09.jpg": "10%",
+  "photo-10.jpg": "10%",
+  "photo-11.jpg": "12%",
+  "photo-12.jpg": "10%",
+  "photo-14.jpg": "10%",
+  "photo-15.jpg": "8%",
+  "photo-16.jpg": "8%",
+  "photo-17.jpg": "10%",
+  "photo-23.jpg": "12%",
+  "photo-24.jpg": "14%",
+};
+
 const original = {
   title: title.textContent,
   subtitle: subtitle.textContent,
@@ -49,22 +82,26 @@ let noMoves = 0;
 function buildCollage() {
   if (!collageBg) return;
 
-  const total = Math.max(
-    collageImages.length,
-    Math.ceil((window.innerWidth * window.innerHeight) / 22000),
-  );
+  const viewportArea = window.innerWidth * window.innerHeight;
+  const total = Math.max(collageImages.length * 2, Math.ceil(viewportArea / 18000) + 28);
 
   for (let index = 0; index < total; index += 1) {
     const src = collageImages[index % collageImages.length];
+    const file = src.split("/").pop();
+    const isPortrait = portraitPhotos.has(file);
     const tile = document.createElement("div");
     const roll = Math.random();
     let variant = "";
-    if (roll > 0.88) variant = "wide";
-    if (roll > 0.94) variant = "tall";
-    if (roll > 0.985) variant = "hero";
+    if (isPortrait) {
+      if (roll > 0.92) variant = "tall";
+    } else {
+      if (roll > 0.92) variant = "wide";
+      if (roll > 0.99) variant = "hero";
+    }
 
     tile.className = `collage-tile ${variant}`.trim();
     tile.style.backgroundImage = `url("${src}")`;
+    tile.style.setProperty("--posy", focalYByPhoto[file] || (isPortrait ? "14%" : "30%"));
     tile.style.setProperty("--r", `${(Math.random() * 4 - 2).toFixed(2)}deg`);
     tile.style.setProperty("--s", `${(Math.random() * 0.08 + 0.96).toFixed(2)}`);
     tile.style.animationDelay = `${index * 35}ms`;
