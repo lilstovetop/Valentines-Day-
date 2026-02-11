@@ -49,25 +49,27 @@ let noMoves = 0;
 function buildCollage() {
   if (!collageBg) return;
 
-  const total = Math.max(
-    collageImages.length,
-    Math.ceil((window.innerWidth * window.innerHeight) / 22000),
-  );
+  const cellSize = window.innerWidth <= 520 ? 92 : 120;
+  const cols = Math.ceil(window.innerWidth / (cellSize + 8));
+  const rows = Math.ceil(window.innerHeight / (cellSize + 8));
+  const total = Math.max(cols * rows + cols, collageImages.length);
+  const ordered = [...collageImages].sort(() => Math.random() - 0.5);
 
   for (let index = 0; index < total; index += 1) {
-    const src = collageImages[index % collageImages.length];
+    const src = ordered[index % ordered.length];
     const tile = document.createElement("div");
-    const roll = Math.random();
-    let variant = "";
-    if (roll > 0.88) variant = "wide";
-    if (roll > 0.94) variant = "tall";
-    if (roll > 0.985) variant = "hero";
+    const img = document.createElement("img");
 
-    tile.className = `collage-tile ${variant}`.trim();
-    tile.style.backgroundImage = `url("${src}")`;
-    tile.style.setProperty("--r", `${(Math.random() * 4 - 2).toFixed(2)}deg`);
-    tile.style.setProperty("--s", `${(Math.random() * 0.08 + 0.96).toFixed(2)}`);
-    tile.style.animationDelay = `${index * 35}ms`;
+    tile.className = "collage-tile";
+    img.src = src;
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+
+    tile.style.setProperty("--r", `${(Math.random() * 2.4 - 1.2).toFixed(2)}deg`);
+    tile.style.setProperty("--s", `${(Math.random() * 0.06 + 0.97).toFixed(2)}`);
+    tile.style.animationDelay = `${index * 20}ms`;
+    tile.appendChild(img);
     collageBg.appendChild(tile);
   }
 }
@@ -139,7 +141,10 @@ function onYes() {
   actions.hidden = true;
   result.hidden = false;
   title.textContent = "You just made my day.";
-  subtitle.textContent = "Now it’s official. Valentine status: confirmed.";
+  subtitle.textContent = "It’s a date.";
+  if (noBtn && noBtn.parentElement) {
+    noBtn.remove();
+  }
   celebrate();
 }
 
